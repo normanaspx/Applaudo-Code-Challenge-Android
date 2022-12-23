@@ -18,7 +18,9 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
+import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.normanaspx.pokeapi.R
 import com.normanaspx.pokeapi.model.Show
 import com.skydoves.landscapist.ImageOptions
 import com.skydoves.landscapist.glide.GlideImage
@@ -41,6 +43,8 @@ fun ShowCard(
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             GlideImage(
+                previewPlaceholder = (R.drawable.play_logo),
+                failure = {(R.drawable.play_logo)},
                 imageModel = {show.getImageURL()},
                 imageOptions = ImageOptions(
                     contentScale = ContentScale.Crop,
@@ -54,11 +58,27 @@ fun ShowCard(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(top=16.dp, bottom=12.dp, start = 8.dp, end=40.dp)
+                        .padding(top=16.dp, bottom=8.dp, start = 8.dp, end=40.dp)
                 ){
                     Text(
                         color = Color(0xFF6B6B83),
                         text = title,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        fontSize = 14.sp,
+                        textAlign = TextAlign.Justify
+                    )
+                }
+            }
+            show.popularity.toString().let {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top=8.dp, start = 8.dp, end=40.dp)
+                ){
+                    Text(
+                        color = Color(0xFF6B6B83),
+                        text = "Popularity $it",
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
                         fontSize = 14.sp,

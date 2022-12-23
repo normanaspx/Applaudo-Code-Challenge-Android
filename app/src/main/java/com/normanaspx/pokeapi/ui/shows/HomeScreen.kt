@@ -1,5 +1,6 @@
 package com.normanaspx.pokeapi.ui.shows
 
+import android.annotation.SuppressLint
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -12,8 +13,6 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.modifier.modifierLocalConsumer
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -21,31 +20,38 @@ import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.arudo.jetpackcompose.ui.theme.JetpackComposeTheme
 import com.normanaspx.pokeapi.model.Show
 import com.normanaspx.pokeapi.ui.SharedViewModel
 import com.normanaspx.pokeapi.ui.Screen
 import com.normanaspx.pokeapi.ui.composables.ShowCard
-import kotlinx.coroutines.flow.Flow
-
-@OptIn(ExperimentalMaterialApi::class)
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun HomeScreen(
     viewModel: SharedViewModel,
     navController: NavController
 ){
+
     Surface(
         color = MaterialTheme.colors.background,
         modifier = Modifier.fillMaxSize()
     ) {
-       Column(
-           Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp)
-       ) {
-           val lazyPagingItems = viewModel.showList("mostrated").collectAsLazyPagingItems()
-           GridofShows(lazyPagingItems = lazyPagingItems, navController = navController, )
+        Scaffold(
+            topBar = {
+                TopAppBar(
+                    title = {
+                        Text("TV Shows")
+                    }
+                )
+            }
+        ){
+            Column(
+                Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp)
+            ) {
+                val lazyPagingItems = viewModel.showList("mostrated").collectAsLazyPagingItems()
+                GridofShows(lazyPagingItems = lazyPagingItems, navController = navController, )
 
-       }
-
+            }
+        }
     }
 }
 

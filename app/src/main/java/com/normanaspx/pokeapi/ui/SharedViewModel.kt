@@ -29,9 +29,6 @@ class SharedViewModel @Inject constructor(val repository: TvRepository) : ViewMo
      fun showList(type: String): Flow<PagingData<Show>> = repository.getShowsFromNetwork(type).cachedIn(viewModelScope)
 
 
-     fun setString(str: String) = showList(str)
-
-
      private val _detailState = mutableStateOf<Response<ShowDetail>>(Response.Success(null))
      val detailState: State<Response<ShowDetail>> = _detailState
 

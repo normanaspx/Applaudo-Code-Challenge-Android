@@ -17,14 +17,27 @@ import com.normanaspx.pokeapi.ui.Screen
 import com.normanaspx.pokeapi.ui.SharedViewModel
 import com.normanaspx.pokeapi.ui.detail.SuccessDetailView
 import com.normanaspx.pokeapi.ui.shows.HomeScreen
+import com.normanaspx.pokeapi.ui.splash.SplashScreen
 
 @Composable
-fun JetpackComposeAppScreen(
+fun AppScreen(
     viewModel: SharedViewModel
 ) {
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = Screen.MainScreen.route){
-        composable(route = Screen.MainScreen.route){
+
+    
+    
+    NavHost(navController = navController,
+        startDestination = Screen.MainScreen.route
+    ){
+        composable(
+            route = Screen.SplashScreen.route
+        ){
+            SplashScreen()
+        }
+        composable(
+            route = Screen.MainScreen.route
+        ){
             HomeScreen(navController = navController, viewModel = viewModel)
         }
         composable(
